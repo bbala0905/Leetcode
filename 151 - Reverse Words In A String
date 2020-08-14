@@ -1,0 +1,30 @@
+# Reverse words in a string without using any Python string functions
+from collections import deque
+class Solution(object):
+    def reverseWords(self, s:str) -> str:
+        dq = deque()
+        i = 0
+        while i < len(s):
+            # skip leading spaces
+            if s[i] == ' ':
+                while i < len(s) and s[i] == ' ':
+                    i += 1
+
+            while i < len(s):
+                # get each separate word
+                word = ""
+                while i < len(s) and s[i] != ' ':
+                    word += s[i]
+                    i += 1
+                
+                # append before previous word in the d-queue
+                dq.appendleft(word)
+  
+                # skip 1 or more spaces between words 
+                i += 1
+                if i < len(s) and s[i] == ' ':
+                    while i < len(s) and s[i] == ' ':
+                        i += 1
+        
+        # return words in d-queue joined by a single space since words are in reverse order
+        return ' '.join(dq)
