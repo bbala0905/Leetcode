@@ -1,0 +1,31 @@
+def longestPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        if len(s) <= 1:
+            return len(s)
+        
+        # find counts of each letter (upper and lower case separately)
+        counts = {}
+        for ch in str(s):
+            if ch in counts:
+                counts[ch] += 1
+            else:
+                counts[ch] = 1
+        
+        # count all pairs of letters
+        l = 0
+        odd = False
+        for key in counts:
+            if counts[key]%2 == 0:
+                l += counts[key]
+            else:
+                l += counts[key]-1
+                odd = True
+        
+        # if odd number for 1 or more letters, increase length by 1 (one letter can be middle letter in a palindrome)
+        if odd:
+            l += 1
+                    
+        return l
